@@ -1,9 +1,50 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  FlatList
+} from 'react-native';
+import timeago from 'timeago.js';
+
+class NoteListItem extends Component {
+  render() {
+    const { note } = this.props;
+
+    return (
+      <View style={listItemStyles.item}>
+        <Text style={listItemStyles.timestamp}>
+          {timeago().format(note.createdAt)}
+        </Text>
+        <Text style={listItemStyles.text}>{note.text}</Text>
+      </View>
+    );
+  }
+}
+
+const listItemStyles = StyleSheet.create({
+  item: {
+    flex: 1,
+    padding: 2,
+    marginTop: 2,
+    borderColor: 'grey',
+    borderWidth: 2
+  },
+  timestamp: {
+    marginBottom: 2
+  },
+  text: {
+    fontSize: 20
+  }
+});
 
 export default class App extends Component {
   state = {
-    text: ''
+    inputText: '',
+    currentIndex: 0,
+    notes: []
   };
 
   render() {
@@ -15,12 +56,33 @@ export default class App extends Component {
             multiline={true}
             style={styles.noteInput}
             placeholder="Make a note..."
-            onChangeText={text => this.setState({ text })}
-            value={this.state.text}
+            onChangeText={inputText => this.setState({ inputText })}
+            value={this.state.inputText}
           />
-          <Button title="Save" onPress={() => {}} />
+          <Button
+            title="Save"
+            onPress={() => {
+              let { currentIndex, inputText } = this.state;
+              const newNote = {
+                id: currentIndex,
+                text: inputText,
+                createdAt: Date.now()
+              };
+              this.setState({
+                inputText: '',
+                currentIndex: ++currentIndex,
+                notes: [newNote].concat(this.state.notes)
+              });
+            }}
+          />
         </View>
-        <View style={{ flex: 5 }} />
+        <View style={{ flex: 5 }}>
+          <FlatList
+            data={this.state.notes}
+            keyExtractor={item => item.id}
+            renderItem={({ item: note }) => <NoteListItem {...{ note }} />}
+          />
+        </View>
       </View>
     );
   }
