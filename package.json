@@ -19,6 +19,8 @@
   "dependencies": {
     "react": "16.0.0-alpha.12",
     "react-native": "^0.48.4",
-    "timeago.js": "^3.0.2"
+    "realm": "^1.13.0",
+    "timeago.js": "^3.0.2",
+    "uuid": "^3.1.0"
   }
 }
