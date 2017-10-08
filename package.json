@@ -16,7 +16,10 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./tests/setup.js"
+    ]
   },
   "dependencies": {
     "react": "16.0.0-alpha.12",
