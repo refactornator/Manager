@@ -1,10 +1,16 @@
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import timeago from 'timeago.js';
 
-export default ({ note }) => (
+export default ({ note, deleteHandler }) => (
   <View style={styles.item}>
-    <Text style={styles.timestamp}>{timeago().format(note.createdAt)}</Text>
+    <View style={styles.header}>
+      <Text style={styles.timestamp}>{timeago().format(note.createdAt)}</Text>
+      <TouchableOpacity onPress={deleteHandler.bind(null, note.key)}>
+        <Icon name="times" size={14} color="#CED1D6" />
+      </TouchableOpacity>
+    </View>
     <Text style={styles.text}>{note.text}</Text>
   </View>
 );
@@ -12,15 +18,31 @@ export default ({ note }) => (
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    padding: 2,
-    marginTop: 2,
-    borderColor: 'grey',
-    borderWidth: 2
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 6,
+    paddingBottom: 6,
+    marginLeft: 8,
+    marginRight: 8,
+    marginTop: 6,
+    marginBottom: 6,
+    backgroundColor: 'white',
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: '#0E2451',
+    shadowOpacity: 0.2,
+    borderRadius: 10
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   timestamp: {
-    marginBottom: 2
+    fontSize: 10,
+    marginBottom: 4
   },
   text: {
-    fontSize: 20
+    fontSize: 20,
+    marginBottom: 4
   }
 });
