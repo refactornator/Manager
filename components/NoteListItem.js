@@ -1,20 +1,40 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
+import styled from 'styled-components/native';
 import timeago from 'timeago.js';
 
 export default ({ note, deleteHandler }) => (
   <View style={styles.item}>
-    <View style={styles.header}>
-      <Text style={styles.timestamp}>{timeago().format(note.createdAt)}</Text>
+    <Header>
+      <Timestamp>{timeago().format(note.createdAt)}</Timestamp>
       <TouchableOpacity onPress={deleteHandler.bind(null, note.key)}>
         <Icon name="times" size={14} color="#CED1D6" />
       </TouchableOpacity>
-    </View>
-    <Text style={styles.text}>{note.text}</Text>
+    </Header>
+    <NoteText style={styles.text}>{note.text}</NoteText>
   </View>
 );
 
+const Header = styled.View`
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Timestamp = styled.Text`
+  font-size: 10px;
+  margin-bottom: 4px;
+`;
+
+const NoteText = styled.Text`
+  font-size: 16px;
+  margin-bottom: 4px;
+`;
+
+// For some reason making this a styled componentWillMount
+// results in the item getting "smushed" when the note list
+// is rerendered from a delete. Seems like a bug
 const styles = StyleSheet.create({
   item: {
     flex: 1,
@@ -31,18 +51,5 @@ const styles = StyleSheet.create({
     shadowColor: '#0E2451',
     shadowOpacity: 0.2,
     borderRadius: 10
-  },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  timestamp: {
-    fontSize: 10,
-    marginBottom: 4
-  },
-  text: {
-    fontSize: 20,
-    marginBottom: 4
   }
 });

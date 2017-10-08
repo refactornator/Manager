@@ -1,11 +1,7 @@
-import {
-  KeyboardAvoidingView,
-  LayoutAnimation,
-  StyleSheet,
-  View
-} from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import React, { Component } from 'react';
 import Realm from 'realm';
+import styled from 'styled-components/native';
 import uuid from 'uuid';
 
 import Loading from './components/Loading';
@@ -80,18 +76,18 @@ export default class App extends Component {
       const notes = realm.objects('Note').sorted('createdAt', true);
 
       return (
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Container behavior="padding">
           <NoteInput
             saveHandler={this.saveNote}
             onFocusHandler={this.expandInput}
             loseFocusHandler={this.retractInput}
           />
           {!expandedInput && (
-            <View style={styles.noteList}>
+            <NoteListWrapper>
               <NoteList notes={notes} deleteHandler={this.deleteNote} />
-            </View>
+            </NoteListWrapper>
           )}
-        </KeyboardAvoidingView>
+        </Container>
       );
     } else {
       return <Loading />;
@@ -99,12 +95,11 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F4F4F4'
-  },
-  noteList: {
-    flex: 5
-  }
-});
+const Container = styled.KeyboardAvoidingView`
+  flex: 1;
+  background-color: #f4f4f4;
+`;
+
+const NoteListWrapper = styled.View`
+  flex: 5;
+`;

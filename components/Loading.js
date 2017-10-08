@@ -1,17 +1,16 @@
+import { Text } from 'react-native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export default () => (
-  <View style={styles.container}>
+  <Container>
     <Text>Loading...</Text>
-  </View>
+  </Container>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+`;
