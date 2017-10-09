@@ -102,7 +102,7 @@ const Input = styled.TextInput`
   flex: 1;
   padding: 7px;
   font-size: 16px;
-  border-color: #00ae9e;
+  border-color: #007aff;
   border-width: 2px;
   shadow-offset: 1px 1px;
   shadow-color: #d4d4d5;

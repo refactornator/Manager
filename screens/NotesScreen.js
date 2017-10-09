@@ -6,7 +6,7 @@ import uuid from 'uuid';
 import NoteInput from '../components/NoteInput';
 import NoteList from '../components/NoteList';
 
-export default class NoteScreen extends Component {
+export default class NotesScreen extends Component {
   state = {
     expandedInput: false
   };
