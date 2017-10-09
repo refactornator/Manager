@@ -77,6 +77,7 @@ export default class NotesScreen extends Component {
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
+  margin-top: 22px;
   background-color: #f4f4f4;
 `;
 

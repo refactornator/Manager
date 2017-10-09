@@ -73,7 +73,6 @@ export default class NoteInput extends Component {
 const Container = styled.View`
   ${props => (props.expanded ? 'flex: 1' : 'height: 80px')};
   padding: 2px;
-  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
 `;

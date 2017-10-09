@@ -1,12 +1,20 @@
-import { Text, View } from 'react-native';
-import React, { Component } from 'react';
+import { StackNavigator } from 'react-navigation';
 
-export default class ReportsScreen extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>This is the reports screen</Text>
-      </View>
-    );
+import ReportsList from '../components/ReportsList';
+import ReportScreen from './ReportScreen';
+
+const ReportsNavigator = StackNavigator({
+  ReportsList: {
+    screen: ReportsList,
+    path: 'reports'
+  },
+  Report: {
+    screen: ReportScreen,
+    path: 'report/:name',
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.params.name
+    })
   }
-}
+});
+
+export default ReportsNavigator;
