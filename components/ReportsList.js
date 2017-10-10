@@ -1,4 +1,4 @@
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { AlertIOS, Dimensions, TouchableOpacity } from 'react-native';
 import Grid from 'react-native-grid-component';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { Component } from 'react';
@@ -14,26 +14,53 @@ export default class ReportsList extends Component {
   renderItem = (data, i) => {
     const { navigation } = this.props;
 
-    return (
-      <TouchableOpacity
-        key={i}
-        onPress={() => navigation.navigate('Report', data)}
-      >
-        <Item>
-          <Icon name="user" size={44} color="#366ddc" />
-          <Name>{data.name}</Name>
-        </Item>
-      </TouchableOpacity>
-    );
+    if (typeof data === 'object') {
+      return (
+        <TouchableOpacity
+          key={i}
+          onPress={() => navigation.navigate('Report', data)}
+        >
+          <Item>
+            <Icon name="user" size={44} color="#366ddc" />
+            <Name>{data.name}</Name>
+          </Item>
+        </TouchableOpacity>
+      );
+    } else if (data === 'add') {
+      return (
+        <TouchableOpacity
+          key={i}
+          onPress={() => {
+            AlertIOS.prompt(
+              'Enter Name',
+              null,
+              name => {
+                this.setState({
+                  reports: this.state.reports.concat([{ name }])
+                });
+              },
+              'plain-text'
+            );
+          }}
+        >
+          <Item>
+            <Icon name="plus-circle" size={44} color="#366ddc" />
+            <Name>Add Report</Name>
+          </Item>
+        </TouchableOpacity>
+      );
+    }
   };
 
   render() {
+    const data = [...this.state.reports, 'add'];
+
     return (
       <Container>
         <Grid
           style={{ flex: 1 }}
           renderItem={this.renderItem}
-          data={this.state.reports}
+          data={data}
           itemsPerRow={2}
         />
       </Container>
