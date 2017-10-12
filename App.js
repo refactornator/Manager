@@ -58,6 +58,11 @@ export default class App extends Component {
           name: 'Note',
           primaryKey: 'key',
           properties: { key: 'string', text: 'string', createdAt: 'date' }
+        },
+        {
+          name: 'Report',
+          primaryKey: 'key',
+          properties: { key: 'string', name: 'string' }
         }
       ]
     }).then(realm => {

@@ -1,14 +1,34 @@
-import { AlertIOS, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  AlertIOS,
+  Dimensions,
+  LayoutAnimation,
+  TouchableOpacity
+} from 'react-native';
 import Grid from 'react-native-grid-component';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { Component } from 'react';
+import realm from 'realm';
 import styled from 'styled-components/native';
+import uuid from 'uuid';
 
 const { width: windowWidth } = Dimensions.get('window');
 
 export default class ReportsList extends Component {
-  state = {
-    reports: [{ name: 'William' }, { name: 'Rick' }, { name: 'Morty' }]
+  addReport = name => {
+    const { realm } = this.props.screenProps;
+
+    try {
+      realm.write(() => {
+        const newReport = realm.create('Report', {
+          key: uuid.v1(),
+          name
+        });
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        this.forceUpdate();
+      });
+    } catch (e) {
+      console.log('Error on creation', e);
+    }
   };
 
   renderItem = (data, i) => {
@@ -31,16 +51,7 @@ export default class ReportsList extends Component {
         <TouchableOpacity
           key={i}
           onPress={() => {
-            AlertIOS.prompt(
-              'Enter Name',
-              null,
-              name => {
-                this.setState({
-                  reports: this.state.reports.concat([{ name }])
-                });
-              },
-              'plain-text'
-            );
+            AlertIOS.prompt('Enter Name', null, this.addReport, 'plain-text');
           }}
         >
           <Item>
@@ -53,7 +64,9 @@ export default class ReportsList extends Component {
   };
 
   render() {
-    const data = [...this.state.reports, 'add'];
+    const { realm } = this.props.screenProps;
+    const reports = realm.objects('Report').sorted('name');
+    const data = [...reports, 'add'];
 
     return (
       <Container>

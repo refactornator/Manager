@@ -1,7 +1,12 @@
 import { StackNavigator } from 'react-navigation';
+import React from 'react';
 
-import ReportsList from '../components/ReportsList';
 import ReportScreen from './ReportScreen';
+import ReportsList from '../components/ReportsList';
+
+const MyReportsScreen = ({ screenProps: props }) => {
+  return <ReportsNavigator screenProps={props} />;
+};
 
 const ReportsNavigator = StackNavigator({
   ReportsList: {
@@ -17,4 +22,4 @@ const ReportsNavigator = StackNavigator({
   }
 });
 
-export default ReportsNavigator;
+export default MyReportsScreen;
