@@ -7,14 +7,10 @@ import Loading from './components/Loading';
 import NotesScreen from './screens/NotesScreen';
 import ReportsScreen from './screens/ReportsScreen';
 
-const MyNotesScreen = ({ screenProps: { realm } }) => {
-  return <NotesScreen realm={realm} />;
-};
-
 const HomeTabNavigator = TabNavigator(
   {
     Notes: {
-      screen: MyNotesScreen,
+      screen: NotesScreen,
       path: '/notes',
       navigationOptions: {
         tabBarLabel: 'Notes',
@@ -42,7 +38,7 @@ const HomeTabNavigator = TabNavigator(
   },
   {
     animationEnabled: true,
-    swipeEnabled: true
+    swipeEnabled: false
   }
 );
 

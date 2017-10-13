@@ -4,22 +4,22 @@ import React from 'react';
 import ReportScreen from './ReportScreen';
 import ReportsList from '../components/ReportsList';
 
-const MyReportsScreen = ({ screenProps: props }) => {
-  return <ReportsNavigator screenProps={props} />;
-};
-
 const ReportsNavigator = StackNavigator({
   ReportsList: {
     screen: ReportsList,
-    path: 'reports'
+    path: 'reports',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Reports'
+    })
   },
   Report: {
     screen: ReportScreen,
     path: 'report/:name',
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params.name
+      title: navigation.state.params.name,
+      tabBarVisible: false
     })
   }
 });
 
-export default MyReportsScreen;
+export default ReportsNavigator;

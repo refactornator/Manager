@@ -12,7 +12,7 @@ export default class NotesScreen extends Component {
   };
 
   saveNote = text => {
-    const { realm } = this.props;
+    const { realm } = this.props.screenProps;
 
     try {
       realm.write(() => {
@@ -30,7 +30,7 @@ export default class NotesScreen extends Component {
   };
 
   deleteNote = key => {
-    const { realm } = this.props;
+    const { realm } = this.props.screenProps;
 
     try {
       realm.write(() => {
@@ -54,7 +54,7 @@ export default class NotesScreen extends Component {
   };
 
   render() {
-    const { realm } = this.props;
+    const { realm } = this.props.screenProps;
     const { expandedInput } = this.state;
     const notes = realm
       .objects('Note')
