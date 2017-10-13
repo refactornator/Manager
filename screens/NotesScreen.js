@@ -56,7 +56,10 @@ export default class NotesScreen extends Component {
   render() {
     const { realm } = this.props;
     const { expandedInput } = this.state;
-    const notes = realm.objects('Note').sorted('createdAt', true);
+    const notes = realm
+      .objects('Note')
+      .filtered(`report == null`)
+      .sorted('createdAt', true);
 
     return (
       <Container behavior="padding">
