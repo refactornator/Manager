@@ -9,10 +9,20 @@ export default class NoteInput extends Component {
     expanded: false
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.focus) {
+      this.setState({ expanded: true });
+      this.refs.input.root.focus();
+    }
+    if (nextProps.note) {
+      this.setState({ text: nextProps.note.text });
+    }
+  }
+
   cancel = () => {
     this.refs.input.root.blur();
     this.props.loseFocusHandler();
-    this.setState({ expanded: false });
+    this.setState({ expanded: false, text: '' });
   };
 
   save = () => {
@@ -37,6 +47,7 @@ export default class NoteInput extends Component {
   };
 
   render() {
+    const { focused, note } = this.props;
     const { text, expanded } = this.state;
     const disableSave = text.length < 1;
 
@@ -44,7 +55,9 @@ export default class NoteInput extends Component {
       <Container expanded={expanded}>
         {expanded && (
           <Header>
-            <Instructions>Create a new note</Instructions>
+            <Instructions>
+              {note ? 'Update your note' : 'Create a new note'}
+            </Instructions>
             <ButtonWrapper>
               <TouchableOpacity disabled={disableSave} onPress={this.save}>
                 <Icon name="check-circle-o" size={44} color="#008774" />

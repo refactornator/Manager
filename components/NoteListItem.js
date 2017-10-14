@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import timeago from 'timeago.js';
 
-export default ({ note, deleteHandler }) => (
+export default ({ note, editHandler, deleteHandler }) => (
   <View style={styles.item}>
     <Header>
       <Timestamp>{timeago().format(note.createdAt)}</Timestamp>
@@ -12,7 +12,9 @@ export default ({ note, deleteHandler }) => (
         <Icon name="times" size={14} color="#CED1D6" />
       </TouchableOpacity>
     </Header>
-    <NoteText style={styles.text}>{note.text}</NoteText>
+    <TouchableOpacity onPress={editHandler.bind(null, note.key)}>
+      <NoteText style={styles.text}>{note.text}</NoteText>
+    </TouchableOpacity>
   </View>
 );
 

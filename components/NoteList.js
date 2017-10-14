@@ -3,11 +3,11 @@ import React from 'react';
 
 import NoteListItem from './NoteListItem';
 
-export default ({ notes, deleteHandler }) => (
+export default ({ notes, editHandler, deleteHandler }) => (
   <FlatList
     data={notes}
     renderItem={({ item: note }) => (
-      <NoteListItem {...{ note, deleteHandler }} />
+      <NoteListItem {...{ note, editHandler, deleteHandler }} />
     )}
   />
 );

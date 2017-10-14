@@ -8,24 +8,35 @@ import NoteList from '../components/NoteList';
 
 export default class NotesScreen extends Component {
   state = {
+    selectedNote: null,
     expandedInput: false
   };
 
   saveNote = text => {
+    const { selectedNote } = this.state;
     const { realm } = this.props.screenProps;
 
-    try {
+    if (selectedNote) {
+      //update
       realm.write(() => {
-        const newNote = realm.create('Note', {
-          key: uuid.v1(),
-          text,
-          createdAt: new Date()
-        });
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-        this.forceUpdate();
+        selectedNote.text = text;
       });
-    } catch (e) {
-      console.log('Error on creation', e);
+      this.setState({ selectedNote: null });
+    } else {
+      //create
+      try {
+        realm.write(() => {
+          const newNote = realm.create('Note', {
+            key: uuid.v1(),
+            text,
+            createdAt: new Date()
+          });
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+          this.forceUpdate();
+        });
+      } catch (e) {
+        console.log('Error on creation', e);
+      }
     }
   };
 
@@ -43,6 +54,13 @@ export default class NotesScreen extends Component {
     }
   };
 
+  editNote = key => {
+    const { realm } = this.props.screenProps;
+    const selectedNote = realm.objectForPrimaryKey('Note', key);
+
+    this.setState({ expandedInput: true, selectedNote });
+  };
+
   expandInput = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({ expandedInput: true });
@@ -50,12 +68,12 @@ export default class NotesScreen extends Component {
 
   retractInput = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    this.setState({ expandedInput: false });
+    this.setState({ expandedInput: false, selectedNote: null });
   };
 
   render() {
     const { realm } = this.props.screenProps;
-    const { expandedInput } = this.state;
+    const { expandedInput, selectedNote } = this.state;
     const notes = realm
       .objects('Note')
       .filtered(`report == null`)
@@ -64,13 +82,19 @@ export default class NotesScreen extends Component {
     return (
       <Container behavior="padding">
         <NoteInput
+          note={selectedNote}
+          focus={expandedInput}
           saveHandler={this.saveNote}
           onFocusHandler={this.expandInput}
           loseFocusHandler={this.retractInput}
         />
         {!expandedInput && (
           <NoteListWrapper>
-            <NoteList notes={notes} deleteHandler={this.deleteNote} />
+            <NoteList
+              notes={notes}
+              editHandler={this.editNote}
+              deleteHandler={this.deleteNote}
+            />
           </NoteListWrapper>
         )}
       </Container>
