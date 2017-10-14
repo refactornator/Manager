@@ -13,8 +13,9 @@ export default class NotesScreen extends Component {
   };
 
   saveNote = text => {
-    const { selectedNote } = this.state;
+    const { report } = this.props;
     const { realm } = this.props.screenProps;
+    const { selectedNote } = this.state;
 
     if (selectedNote) {
       //update
@@ -29,6 +30,7 @@ export default class NotesScreen extends Component {
           const newNote = realm.create('Note', {
             key: uuid.v1(),
             text,
+            report,
             createdAt: new Date()
           });
           LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
@@ -72,15 +74,20 @@ export default class NotesScreen extends Component {
   };
 
   render() {
+    const { report, keyboardVerticalOffset } = this.props;
     const { realm } = this.props.screenProps;
     const { expandedInput, selectedNote } = this.state;
+
     const notes = realm
       .objects('Note')
-      .filtered(`report == null`)
+      .filtered('report == $0', report)
       .sorted('createdAt', true);
 
     return (
-      <Container behavior="padding">
+      <Container
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
         <NoteInput
           note={selectedNote}
           focus={expandedInput}
@@ -104,8 +111,6 @@ export default class NotesScreen extends Component {
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
-  margin-top: 22px;
-  background-color: #f4f4f4;
 `;
 
 const NoteListWrapper = styled.View`

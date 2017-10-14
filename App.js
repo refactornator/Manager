@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import Realm from 'realm';
 
 import Loading from './components/Loading';
-import NotesScreen from './screens/NotesScreen';
+import MyNotesScreen from './screens/MyNotesScreen';
 import ReportsScreen from './screens/ReportsScreen';
 
 const HomeTabNavigator = TabNavigator(
   {
     Notes: {
-      screen: NotesScreen,
+      screen: MyNotesScreen,
       path: '/notes',
       navigationOptions: {
         tabBarLabel: 'Notes',
