@@ -12,7 +12,13 @@ const note = {
 
 it('renders a note list item', () => {
   const rendered = renderer
-    .create(<NoteListItem note={note} deleteHandler={() => {}} />)
+    .create(
+      <NoteListItem
+        note={note}
+        editHandler={() => {}}
+        deleteHandler={() => {}}
+      />
+    )
     .toJSON();
   expect(rendered).toMatchSnapshot();
 });
