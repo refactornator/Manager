@@ -12,7 +12,13 @@ export default class ReportsList extends Component {
     const { navigation } = this.props;
     const { realm } = this.props.screenProps;
 
-    return <ReportsListItem key={index} {...{ navigation, realm, data }} />;
+    return (
+      <ReportsListItem
+        key={index}
+        {...{ navigation, realm, data }}
+        onAddReport={this.forceUpdate.bind(this)}
+      />
+    );
   };
 
   render() {

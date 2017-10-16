@@ -13,7 +13,7 @@ const { width: windowWidth } = Dimensions.get('window');
 
 export default class ReportsListItem extends Component {
   addReport = name => {
-    const { realm } = this.props;
+    const { realm, onAddReport } = this.props;
 
     try {
       realm.write(() => {
@@ -23,6 +23,7 @@ export default class ReportsListItem extends Component {
         });
       });
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+      onAddReport();
     } catch (e) {
       console.log('Error on creation', e);
     }
