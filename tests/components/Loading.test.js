@@ -1,9 +1,10 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+
+import { shallow } from 'enzyme';
 
 import Loading from '../../components/Loading';
 
 it('renders a simple loading message', () => {
-  const rendered = renderer.create(<Loading />).toJSON();
-  expect(rendered).toMatchSnapshot();
+  const render = shallow(<Loading />);
+  expect(render).toMatchSnapshot();
 });

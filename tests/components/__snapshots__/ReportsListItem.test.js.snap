@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add report list item renders 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  onPress={[Function]}
+>
+  <Styled(View)>
+    <Icon
+      allowFontScaling={false}
+      color="#366ddc"
+      name="plus-circle"
+      size={44}
+    />
+    <Styled(Text)>
+      Add Report
+    </Styled(Text)>
+  </Styled(View)>
+</TouchableOpacity>
+`;
+
+exports[`report list item renders 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  onPress={[Function]}
+>
+  <Styled(View)>
+    <Icon
+      allowFontScaling={false}
+      color="#366ddc"
+      name="user"
+      size={44}
+    />
+    <Styled(Text)>
+      William
+    </Styled(Text)>
+  </Styled(View)>
+</TouchableOpacity>
+`;

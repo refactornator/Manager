@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the manager's notes screen 1`] = `
+<Styled(View)>
+  <NotesScreen
+    keyboardVerticalOffset={0}
+    report={null}
+  />
+</Styled(View)>
+`;

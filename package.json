@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-jest": "^21.2.0",
     "babel-preset-react-native": "^4.0.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "enzyme-to-json": "^3.1.2",
     "jest": "^21.2.1",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "react-dom": "^16.0.0",
+    "react-native-mock-render": "^0.0.9",
+    "react-test-renderer": "^16.0.0",
+    "sinon": "^4.0.1"
   },
   "scripts": {
     "start": "react-native start",
@@ -17,6 +24,14 @@
     "preset": "react-native",
     "setupFiles": [
       "./tests/setup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "App.js",
+      "components/**/*.js",
+      "screens/**/*.js"
     ]
   },
   "dependencies": {

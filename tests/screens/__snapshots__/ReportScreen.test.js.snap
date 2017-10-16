@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the report's screen 1`] = `
+<NotesScreen
+  keyboardVerticalOffset={65}
+  navigation={
+    Object {
+      "state": Object {
+        "params": Object {
+          "key": 1,
+          "name": "William",
+        },
+      },
+    }
+  }
+  report={
+    Object {
+      "key": 1,
+      "name": "William",
+    }
+  }
+/>
+`;

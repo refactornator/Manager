@@ -6,6 +6,7 @@ import Realm from 'realm';
 import Loading from './components/Loading';
 import MyNotesScreen from './screens/MyNotesScreen';
 import ReportsScreen from './screens/ReportsScreen';
+import schema from './schema';
 
 const HomeTabNavigator = TabNavigator(
   {
@@ -48,29 +49,7 @@ export default class App extends Component {
   };
 
   componentWillMount() {
-    Realm.open({
-      schema: [
-        {
-          name: 'Note',
-          primaryKey: 'key',
-          properties: {
-            key: 'string',
-            text: 'string',
-            createdAt: 'date',
-            report: { type: 'Report', optional: true }
-          }
-        },
-        {
-          name: 'Report',
-          primaryKey: 'key',
-          properties: {
-            key: 'string',
-            name: 'string',
-            notes: { type: 'list', objectType: 'Note' }
-          }
-        }
-      ]
-    }).then(realm => {
+    Realm.open(schema).then(realm => {
       this.setState({ realm });
     });
   }

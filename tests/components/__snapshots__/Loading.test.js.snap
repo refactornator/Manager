@@ -1,21 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a simple loading message 1`] = `
-<View
-  style={
-    Array [
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#fff",
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "justifyContent": "center",
-      },
-      undefined,
-    ]
-  }
->
+<Styled(View)>
   <Text
     accessible={true}
     allowFontScaling={true}
@@ -24,5 +10,5 @@ exports[`renders a simple loading message 1`] = `
   >
     Loading...
   </Text>
-</View>
+</Styled(View)>
 `;

@@ -1,5 +1,4 @@
 import { StackNavigator } from 'react-navigation';
-import React from 'react';
 
 import ReportScreen from './ReportScreen';
 import ReportsList from '../components/ReportsList';
